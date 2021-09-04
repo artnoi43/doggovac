@@ -1,0 +1,158 @@
+html {
+	overflow-y: scroll;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	padding: 1.5em;
+}
+
+body {
+	background: #000;
+	margin: auto;
+	text-align: center;
+	max-width: 80%;
+	line-height: 1.5em;
+	font-size: 18px;
+	color: #c6c8d1;
+}
+
+* {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+footer p {
+	font-family: Times;
+	font-size: small;
+}
+
+nav {
+	width: 80vw;
+	border: 1px solid #c6c8d1;
+	background: #222;
+}
+
+nav > div {
+	display: flex;
+	justify-content: space-around;
+}
+
+nav > div > * {
+	padding: 14px;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	color: #91acd1;
+	text-decoration: none;
+}
+
+a:hover, a:focus, a:active {
+	text-decoration: underline;
+}
+
+code {
+	font-family: monospace;
+}
+
+blockquote {
+	padding-left: 1em;
+	font-style: italic;
+	border-left: solid 4px #ada0d3;
+}
+
+table {
+	table-layout: fixed;
+	width: 80vw;
+}
+
+table, tr, th, td {
+	padding: 14px;
+	margin: auto;
+	border: 1px solid #91acd1;
+	border-collapse: collapse;
+}
+
+input {
+	padding: 4px;
+}
+
+.status {
+	margin: auto;
+	margin-top: 14px;
+	width: 600px;
+	padding: 14px;
+	border: 1px solid #91acd1;
+}
+
+.status-fail {
+	margin: auto;
+	margin-top: 14px;
+	width: 600px;
+	padding: 14px;
+	background: #380000;
+}
+
+.logo {
+	width: 30px;
+	vertical-align: middle;	
+}
+
+.article {
+	margin: auto;
+	text-align: justify;
+}
+
+.table-header > * {
+	padding: 0px;
+	background: #c0ca8e;
+	color: black;	
+}
+
+.small-table-header > * {
+	padding: 0px;
+	background: #91acd1;
+	color: black;
+}
+
+.edit-table-header > * {
+	padding: 0px;
+	background: orange;
+	color: black;
+}
+
+.container {
+	display: flex;
+	margin-bottom: 14px;
+}
+
+.search {
+	margin-bottom: 14px;
+}
+
+.fail, .red {
+	color: #e27878;
+}
+
+.done, .green {
+	color: #b4be82;
+}
+
+.done-schedule {
+	background: #222;
+}
+
+@media (max-width:1000px) {
+	* {
+		width: 100%;
+	}
+	nav > div {
+		flex-direction: column;
+	}
+	nav > div > * {
+		padding: 4px;
+	}
+}
