@@ -6,7 +6,7 @@ import Customers from "../components/Customers";
 import Home from '../components/Home';
 import Login from "../components/Login";
 import Pets from "../components/Pets";
-import Profile from "../components/Profile";
+import Profile from "../components/Account";
 import Register from "../components/Register";
 import Schedules from "../components/Schedules";
 
@@ -43,8 +43,8 @@ const components = {
         url: "/pets",
         component: Pets
     },
-    profile: {
-        url: "/profile",
+    account: {
+        url: "/account",
         component: Profile
     },
     register: {
@@ -76,7 +76,7 @@ const privateRoutes = {
             components.createPet,
             components.customers,
             components.pets,
-            components.profile,
+            components.account,
             components.schedules
         ],
         redirectRoute: "/"

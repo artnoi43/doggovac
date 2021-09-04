@@ -41,7 +41,7 @@ function Header() {
                     <Link to="/pets">Pets</Link>
                     <Link to="/create-customer">Create Customer</Link>
                     <Link to="/create-pet">Create Pet</Link>
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/account">Account</Link>
                     <LogOutButton variant="outlined" color="secondary" />
                 </>}
             </div>
