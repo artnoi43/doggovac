@@ -159,7 +159,7 @@ function Schedules() {
                 </ButtonGroup>
 
                 {schedules.length === 0 ? <>
-                    <NoneFound text="Schedules" />
+                    <NoneFound text="Matching Schedules" />
                 </> : <>
                     <div style={{ textAlign: "left" }}>
                         <p>
