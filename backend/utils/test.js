@@ -1,13 +1,15 @@
 const axios = require('axios');
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
+// axios.defaults.baseURL = "https://doggovac.artnoi.com/api";
+
+const hiddenValue = "Hidden in this test";
 
 const register = async (username, password) => {
-    const body = {
-        username,
-        password
-    };
-    console.log(body);
     try {
+        const body = {
+            username,
+            password
+        };
         await axios.post('/users/register', body);
         console.log("Registration successful");
     } catch (err) {
@@ -16,16 +18,25 @@ const register = async (username, password) => {
 };
 
 const login = async (username, password) => {
-    const body = {
-        username,
-        password
-    };
-
     try {
+        const body = {
+            username,
+            password
+        };
         const res = await axios.post('/users/login', body);
         const { token } = res.data;
         console.log("Login successful");
         return token
+    } catch (err) {
+        console.error(err);
+    };
+};
+
+const getUsers = async () => {
+    try {
+        console.log("Getting users");
+        const res = await axios.get('/users');
+        console.log("Got users: ", res.data);
     } catch (err) {
         console.error(err);
     };
@@ -84,7 +95,7 @@ const createPet = async (custId) => {
             custId
         }
         const res = await axios.post('/pets', body);
-        console.log("Created pet:", { ...res.data, Schedules: "Hidden in this test" });
+        console.log("Created pet:", { ...res.data, Schedules: hiddenValue });
         // Return petId
         return res.data.id
     } catch (err) {
@@ -96,7 +107,7 @@ const getPet = async (petId) => {
     try {
         console.log(`Getting pet ${petId}`);
         const res = await axios.get(`/pets/${petId}`);
-        console.log("Got pet:", { ...res.data, Schedules: "Hidden in this test" });
+        console.log("Got pet:", { ...res.data, Customer: hiddenValue, Schedules: hiddenValue });
     } catch (err) {
         console.error(err);
     };
@@ -124,7 +135,7 @@ const getSchedules = async () => {
         console.log("Getting schedules");
         const res = await axios.get('/schedules');
         lastSchedule = res.data[res.data.length - 1]
-        console.log("Got schedules, showing last schedule only", lastSchedule);
+        console.log("Got schedules, showing last schedule only", { ...lastSchedule, Pet: hiddenValue });
         // Return scheduleId of last schedule
         return lastSchedule.id;
     } catch (err) {
@@ -152,32 +163,16 @@ const getDue = async () => {
         const dues = ["today", "week", "month", "year"];
         dues.forEach(async (due) => {
             const res = await axios.get(`/schedules/${due}`)
-            console.log(`Due: ${due}`, res.data);
+            const dueSchedules = res.data;
+            // Hide embedded pet data
+            dueSchedules.forEach(dueSchedule => {
+                dueSchedule.Pet = hiddenValue;
+            })
+            console.log(`Due: ${due}`, dueSchedules);
         });
     } catch (err) {
         console.error(err)
     };
-};
-
-async function main() {
-    const username = genName(6);
-    const password = "mySuperSecret";
-    // /users
-    await register(username, password);
-    const token = await login(username, password);
-    axiosConfig(token);
-    // /customers
-    const custId = await createCustomer();
-    await getCustomer();
-    await updateCustomer(custId);
-    // /pets
-    const petId = await createPet(custId);
-    await getPet(petId);
-    await updatePet(petId);
-    // /schedules
-    const scheduleId = await getSchedules();
-    await updateSchedule(scheduleId);
-    await getDue();
 };
 
 const genName = (len) => {
@@ -211,5 +206,27 @@ const axiosConfig = (token) => {
         }
     );
 }
+
+async function main() {
+    const username = genName(6);
+    const password = "mySuperSecret";
+    // /users
+    await register(username, password);
+    const token = await login(username, password);
+    axiosConfig(token);
+    await getUsers();
+    // /customers
+    const custId = await createCustomer();
+    await getCustomer(custId);
+    await updateCustomer(custId);
+    // /pets
+    const petId = await createPet(custId);
+    await getPet(petId);
+    await updatePet(petId);
+    // /schedules
+    const scheduleId = await getSchedules();
+    await updateSchedule(scheduleId);
+    await getDue();
+};
 
 main();
