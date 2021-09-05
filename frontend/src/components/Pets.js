@@ -70,9 +70,9 @@ function Pets() {
             </> : !fetchFail ? <>
                 {updating ? <Updating text="Pets" /> : null}
                 <div className="search">
-                    <Input placeholder="Pet Name" onChange={onNameChange} />
+                    <Input placeholder="Filter by Pet Name" onChange={onNameChange} />
                     <br />
-                    <Input placeholder="Pet ID" onChange={onIdChange} />
+                    <Input placeholder="Filter by Pet ID" onChange={onIdChange} />
                 </div>
                 <petsContext.Provider value={{ fetch, setUpdating }}>
                     {filtered
