@@ -10,14 +10,17 @@ export const petsContext = createContext(null);
 
 function Pets() {
 
+    const [pets, setPets] = useState([]);
     const [petId, setPetId] = useState('');
     const [petName, setPetName] = useState('');
-    const [pets, setPets] = useState([]);
-    const [showPetId, setShowPetId] = useState(false);
-    const [showSpecies, setShowSpecies] = useState(false);
+    const [species, setSpecies] = useState('');
     const [filtered, setFiltered] = useState([]);
+    // Status
     const [fetchFail, setFetchFail] = useState(false);
     const [updating, setUpdating] = useState(false);
+    const [showPetId, setShowPetId] = useState(false);
+    // Toggle
+    const [showSpecies, setShowSpecies] = useState(false);
 
     const fetch = async () => {
         try {
@@ -40,27 +43,38 @@ function Pets() {
             if (!petId) {
                 return true;
             } else {
-                return pet.id === petId
+                return pet.id === petId;
             };
         };
         const filterPetName = (pet) => {
             if (!petName) {
                 return true;
             } else {
-                return pet.name.toUpperCase().includes(petName.toUpperCase())
+                return pet.name.toUpperCase().includes(petName.toUpperCase());
+            };
+        };
+        const filterSpecies = (pet) => {
+            if (!species) {
+                return true;
+            } else {
+                return pet.species.toUpperCase().includes(species.toUpperCase());
             };
         };
         setFiltered(pets
             .filter(filterPetId)
             .filter(filterPetName)
+            .filter(filterSpecies)
         );
-    }, [pets, petId, petName]);
+    }, [pets, petId, petName, species]);
 
     const onIdChange = (e) => {
         setPetId(Number(e.target.value));
     };
     const onNameChange = (e) => {
         setPetName(e.target.value);
+    };
+    const onSpeciesChange = (e) => {
+        setSpecies(e.target.value);
     };
     const onShowPetIdChange = () => {
         setShowPetId(!showPetId);
@@ -78,9 +92,11 @@ function Pets() {
             </> : !fetchFail ? <>
                 {updating ? <Updating text="Pets" /> : null}
                 <div className="search">
+                    <Input placeholder="Filter by Pet ID" onChange={onIdChange} />
+                    <br />
                     <Input placeholder="Filter by Pet Name" onChange={onNameChange} />
                     <br />
-                    <Input placeholder="Filter by Pet ID" onChange={onIdChange} />
+                    <Input placeholder="Filter by Pet Species" onChange={onSpeciesChange} />
                 </div>
                 <div style={{ textAlign: "left" }}>
                     <Checkbox onChange={onShowPetIdChange} /> Show Pet ID

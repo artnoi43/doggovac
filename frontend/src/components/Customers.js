@@ -70,9 +70,9 @@ function Customers() {
             </> : !fetchFail ? <>
                 {updating ? <Updating text="Customers" /> : null}
                 <div className="search">
-                    <Input placeholder="Filter by Customer Name" onChange={onNameChange} />
-                    <br />
                     <Input placeholder="Filter by Customer ID" onChange={onIdChange} />
+                    <br />
+                    <Input placeholder="Filter by Customer Name" onChange={onNameChange} />
                 </div>
                 <customersContext.Provider value={{ fetch, setUpdating }}>
                     {filtered.map(customer =>

@@ -136,10 +136,9 @@ function Schedules() {
     return (
         <>
             <h1>Schedules</h1>
-            {fetchFail ? <FetchFail text="Schedules" /> : null}
-            {!fetchFail && schedules.length === 0 ? <>
-                <NoneFound text="Schedules" />
-            </> : !fetchFail ? <>
+            {fetchFail ? <>
+                <FetchFail text="Schedules" />
+            </> : <>
                 <div className="search">
                     <Input placeholder="Filter by Pet Name" onChange={onPetNameChange} />
                     <br />
@@ -150,6 +149,7 @@ function Schedules() {
                     <Input placeholder="Filter by Vaccine Name" onChange={onVacChange} />
                     <br />
                 </div>
+
                 <ButtonGroup>
                     <Button onClick={() => setDue('all')} disabled={due === "all"}>All</Button>
                     <Button onClick={() => setDue('today')} disabled={due === "today"}>Today</Button>
@@ -157,38 +157,43 @@ function Schedules() {
                     <Button onClick={() => setDue('month')} disabled={due === "month"}>Month</Button>
                     <Button onClick={() => setDue('year')} disabled={due === "year"}>Year</Button>
                 </ButtonGroup>
-                <div style={{ textAlign: "left" }}>
-                    <p>
-                        <Checkbox onChange={onDoneChange} disabled={notDoneOnly ? true : false} /> Only Show Done Schedules
-                        <br />
-                        <Checkbox onChange={onNotDoneChange} disabled={doneOnly ? true : false} /> Only Show Not-Done Schedules
-                        <br />
-                        <Checkbox onChange={onShowPetIdChange} /> Show Pet ID
-                        <Checkbox onChange={onShowSpeciesChange} /> Show Pet Species
-                    </p>
-                </div>
-                <h2>Total Schedules: {filtered.length} ({due})</h2>
-                <table>
-                    <thead className="small-table-header">
-                        <th>Vaccine</th>
-                        {showPetId ? <th>Pet ID</th> : null}
-                        <th>Pet Name</th>
-                        {showSpecies ? <th>Species</th> : null}
-                        <th>Date</th>
-                        <th>Contact</th>
-                        <th>Status</th>
-                        {showEdit ? <th>Edit Date</th> : null}
-                        {showEdit ? <th>Edit Status</th> : null}
-                        <th>Actions</th>
-                    </thead>
-                    <tbody>
-                        <schedulesContext.Provider value={{ fetch, showEdit, setShowEdit, showPetId, showSpecies }}>
-                            {filtered
-                                .map(schedule => <Schedule key={schedule.id} schedule={schedule} />)}
-                        </schedulesContext.Provider>
-                    </tbody>
-                </table>
-            </> : null}
+
+                {schedules.length === 0 ? <>
+                    <NoneFound text="Schedules" />
+                </> : <>
+                    <div style={{ textAlign: "left" }}>
+                        <p>
+                            <Checkbox onChange={onDoneChange} disabled={notDoneOnly ? true : false} /> Only Show Done Schedules
+                            <br />
+                            <Checkbox onChange={onNotDoneChange} disabled={doneOnly ? true : false} /> Only Show Not-Done Schedules
+                            <br />
+                            <Checkbox onChange={onShowPetIdChange} /> Show Pet ID
+                            <Checkbox onChange={onShowSpeciesChange} /> Show Pet Species
+                        </p>
+                    </div>
+                    <h2>Total Schedules: {filtered.length} ({due})</h2>
+                    <table>
+                        <thead className="small-table-header">
+                            {showPetId ? <th>Pet ID</th> : null}
+                            <th>Pet Name</th>
+                            {showSpecies ? <th>Species</th> : null}
+                            <th>Contact</th>
+                            <th>Vaccine</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            {showEdit ? <th>Edit Date</th> : null}
+                            {showEdit ? <th>Edit Status</th> : null}
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            <schedulesContext.Provider value={{ fetch, showEdit, setShowEdit, showPetId, showSpecies }}>
+                                {filtered
+                                    .map(schedule => <Schedule key={schedule.id} schedule={schedule} />)}
+                            </schedulesContext.Provider>
+                        </tbody>
+                    </table>
+                </>}
+            </>}
         </>
     )
 };

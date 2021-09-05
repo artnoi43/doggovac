@@ -41,12 +41,12 @@ function Schedule({ schedule }) {
         <>
             {updating ? <p className="green">Updating data</p> : null}
             <tr className={schedule.status ? "done-schedule" : null}>
-                <td>{schedule.vaccine}</td>
                 {showPetId ? <td>{schedule.petId}</td> : null}
                 <td><strong>{schedule.Pet.name}</strong></td>
                 {showSpecies ? <td>{schedule.Pet.species}</td> : null}
-                <td>{schedule.date}</td>
                 <td>{schedule.Pet.Customer.contact}</td>
+                <td>{schedule.vaccine}</td>
+                <td>{schedule.date}</td>
                 <td><Checkbox color="primary" checked={schedule.status} /></td>
                 {showEdit ? <td><Picker value={editDate} onChange={onEditDateChange} /></td> : null}
                 {showEdit ? <td><Checkbox onChange={onEditStatusChange} checked={editStatus} /></td> : null}
