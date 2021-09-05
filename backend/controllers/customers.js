@@ -33,7 +33,7 @@ const getCustomers = async (req, res) => {
 
 const getCustomer = async (req, res) => {
     try {
-        const targetId = req.params.id;
+        const targetId = Number(req.params.id);
         const userId = req.user.id;
         const customer = await db.Customer.findOne({
             where: { id: targetId, uid: userId },
