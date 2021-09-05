@@ -18,6 +18,7 @@ function Schedules() {
     const [filtered, setFiltered] = useState([]);
     const [petId, setPetId] = useState(null);
     const [petName, setPetName] = useState('');
+    const [species, setSpecies] = useState('');
     const [vaccine, setVaccine] = useState('');
     const [doneOnly, setDoneOnly] = useState(false);
     const [notDoneOnly, setNotDoneOnly] = useState(false);
@@ -78,6 +79,13 @@ function Schedules() {
                 return schedule.Pet.name.toUpperCase().includes(petName.toUpperCase());
             };
         };
+        const filterSpecies = (schedule) => {
+            if (!species) {
+                return true;
+            } else {
+                return schedule.Pet.species.toUpperCase().includes(species.toUpperCase());
+            };
+        };
         const filterVaccine = (schedule) => {
             if (!vaccine) {
                 return true;
@@ -89,15 +97,19 @@ function Schedules() {
             .filter(filterStatus)
             .filter(filterPetId)
             .filter(filterPetName)
+            .filter(filterSpecies)
             .filter(filterVaccine)
         );
-    }, [schedules, doneOnly, notDoneOnly, petId, petName, vaccine])
+    }, [schedules, doneOnly, notDoneOnly, petId, petName, species, vaccine])
 
     const onPetIdChange = (e) => {
         setPetId(Number(e.target.value));
     };
     const onPetNameChange = (e) => {
         setPetName(e.target.value);
+    };
+    const onSpeciesChange = (e) => {
+        setSpecies(e.target.value);
     };
     const onVacChange = (e) => {
         setVaccine(e.target.value);
@@ -129,11 +141,13 @@ function Schedules() {
                 <NoneFound text="Schedules" />
             </> : !fetchFail ? <>
                 <div className="search">
-                    <Input placeholder="By Pet Name" onChange={onPetNameChange} />
+                    <Input placeholder="Filter by Pet Name" onChange={onPetNameChange} />
                     <br />
-                    <Input placeholder="By Pet ID" onChange={onPetIdChange} />
+                    <Input placeholder="Filter by Pet ID" onChange={onPetIdChange} />
                     <br />
-                    <Input placeholder="By Vaccine" onChange={onVacChange} />
+                    <Input placeholder="Filter by Pet Species" onChange={onSpeciesChange} />
+                    <br />
+                    <Input placeholder="Filter by Vaccine Name" onChange={onVacChange} />
                     <br />
                 </div>
                 <ButtonGroup>
