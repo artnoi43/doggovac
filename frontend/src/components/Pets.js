@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from 'react';
-import { Input } from '@material-ui/core';
+import { Input, Checkbox } from '@material-ui/core';
 import axios from '../config/axios';
 import Pet from './Pet';
 import FetchFail from './status/FetchFail';
@@ -13,6 +13,8 @@ function Pets() {
     const [petId, setPetId] = useState('');
     const [petName, setPetName] = useState('');
     const [pets, setPets] = useState([]);
+    const [showPetId, setShowPetId] = useState(false);
+    const [showSpecies, setShowSpecies] = useState(false);
     const [filtered, setFiltered] = useState([]);
     const [fetchFail, setFetchFail] = useState(false);
     const [updating, setUpdating] = useState(false);
@@ -60,6 +62,12 @@ function Pets() {
     const onNameChange = (e) => {
         setPetName(e.target.value);
     };
+    const onShowPetIdChange = () => {
+        setShowPetId(!showPetId);
+    };
+    const onShowSpeciesChange = () => {
+        setShowSpecies(!showSpecies);
+    };
 
     return (
         <>
@@ -74,7 +82,12 @@ function Pets() {
                     <br />
                     <Input placeholder="Filter by Pet ID" onChange={onIdChange} />
                 </div>
-                <petsContext.Provider value={{ fetch, setUpdating }}>
+                <div style={{ textAlign: "left" }}>
+                    <Checkbox onChange={onShowPetIdChange} /> Show Pet ID
+                    <br />
+                    <Checkbox onChange={onShowSpeciesChange} /> Show Pet Species
+                </div>
+                <petsContext.Provider value={{ fetch, setUpdating, showPetId, showSpecies }}>
                     {filtered
                         .map(pet => <Pet key={pet.id} pet={pet} />)
                     }

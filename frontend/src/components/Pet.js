@@ -16,7 +16,7 @@ function Pet({ pet }) {
     const [editDob, setEditDob] = useState(pet.dob);
     const [editNote, setEditNote] = useState(pet.note);
 
-    const { fetch, setUpdating } = useContext(petsContext);
+    const { fetch, setUpdating, showPetId, showSpecies } = useContext(petsContext);
 
     const onEditNameChange = (e) => {
         setEditName(e.target.value);
@@ -62,9 +62,9 @@ function Pet({ pet }) {
         <>
             <table>
                 <thead>
-                    <th>Pet ID</th>
+                    {showPetId ? <th>Pet ID</th> : null}
                     <th>Name</th>
-                    <th>Species</th>
+                    {showSpecies ? <th>Species</th> : null}
                     <th>DOB</th>
                     <th>Note</th>
                     <th>Customer</th>
@@ -73,9 +73,9 @@ function Pet({ pet }) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{pet.id}</td>
+                        {showPetId ? <td>{pet.id}</td> : null}
                         <td><strong>{pet.name}</strong></td>
-                        <td>{pet.species}</td>
+                        {showSpecies ? <td>{pet.species}</td> : null}
                         <td>{pet.dob}</td>
                         <td>{pet.note}</td>
                         <td>{pet.Customer.name}</td>
