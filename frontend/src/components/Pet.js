@@ -60,18 +60,18 @@ function Pet({ pet }) {
 
     return (
         <>
-            <table className="data-table">
+            <table>
+                <thead>
+                    <th>Pet ID</th>
+                    <th>Name</th>
+                    <th>Species</th>
+                    <th>DOB</th>
+                    <th>Note</th>
+                    <th>Customer</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </thead>
                 <tbody>
-                    <tr className="table-header">
-                        <th>Pet ID</th>
-                        <th>Name</th>
-                        <th>Species</th>
-                        <th>DOB</th>
-                        <th>Note</th>
-                        <th>Customer</th>
-                        <th>Contact</th>
-                        <th></th>
-                    </tr>
                     <tr>
                         <td>{pet.id}</td>
                         <td><strong>{pet.name}</strong></td>
@@ -92,13 +92,13 @@ function Pet({ pet }) {
             </table>
             {showEdit ? <>
                 <table>
+                    <thead className="edit-table-header">
+                        <th>New Name</th>
+                        <th>New DOB</th>
+                        <th>New Note</th>
+                        <th>Actions</th>
+                    </thead>
                     <tbody>
-                        <tr className="edit-table-header">
-                            <th>New Name</th>
-                            <th>New DOB</th>
-                            <th>New Note</th>
-                            <th>Done</th>
-                        </tr>
                         <tr>
                             <td><TextField label="Edit Name" onChange={onEditNameChange} value={editName} /></td>
                             <td><Picker label="Date of Birth" onChange={onEditDobChange} value={editDob} /></td>

@@ -76,6 +76,12 @@ table, tr, th, td {
 	border-collapse: collapse;
 }
 
+thead > * {
+	padding: 0px;
+	background: #c0ca8e;
+	color: black;	
+}
+
 input {
 	padding: 4px;
 }
@@ -104,12 +110,6 @@ input {
 .article {
 	margin: auto;
 	text-align: justify;
-}
-
-.table-header > * {
-	padding: 0px;
-	background: #c0ca8e;
-	color: black;	
 }
 
 .small-table-header > * {

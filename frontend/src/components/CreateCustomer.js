@@ -62,13 +62,13 @@ function CreateCustomer() {
                 <h2 className="done">Customer created successfully</h2>
                 <p><Button variant="outlined" onClick={() => setDone(false)}>Create another customer</Button></p>
                 <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Contact</th>
+                        <th>Customer Address</th>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <th>ID</th>
-                            <th>Customer Name</th>
-                            <th>Customer Contact</th>
-                            <th>Customer Address</th>
-                        </tr>
                         <tr>
                             <td>{customerCreated.id}</td>
                             <td>{customerCreated.name}</td>

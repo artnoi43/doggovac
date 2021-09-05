@@ -104,15 +104,15 @@ function CreatePet() {
                 <h2 className="done">Pet created successfully</h2>
                 <p><Button variant="outlined" onClick={() => setDone(false)}>Create Another Pet</Button></p>
                 <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Pet Name</th>
+                        <th>Species</th>
+                        <th>DOB</th>
+                        <th>Cust. ID</th>
+                        <th>Cust. Name</th>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <th>ID</th>
-                            <th>Pet Name</th>
-                            <th>Species</th>
-                            <th>DOB</th>
-                            <th>Cust. ID</th>
-                            <th>Cust. Name</th>
-                        </tr>
                         <tr>
                             <td>{petCreated.id}</td>
                             <td>{petCreated.name}</td>

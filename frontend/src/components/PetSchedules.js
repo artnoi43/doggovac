@@ -13,15 +13,15 @@ function PetSchedules({ schedules }) {
         <>
             <table>
                 <caption>Vaccination Schedules for {pet.name}</caption>
+                <thead className="small-table-header">
+                    <th>Vaccine</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    {showEdit ? <th>Set Date</th> : null}
+                    {showEdit ? <th>Set Status</th> : null}
+                    <th>Actions</th>
+                </thead>
                 <tbody>
-                    <tr className="small-table-header">
-                        <th>Vaccine</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        {showEdit ? <th>Set Date</th> : null}
-                        {showEdit ? <th>Set Status</th> : null}
-                        <th>Actions</th>
-                    </tr>
                     <petSchedulesContext.Provider value={{ showEdit, setShowEdit }}>
                         {schedules.map((schedule) => <PetSchedule key={schedule.id} schedule={schedule} />)}
                     </petSchedulesContext.Provider>

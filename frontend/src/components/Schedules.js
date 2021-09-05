@@ -154,20 +154,20 @@ function Schedules() {
                     </p>
                 </div>
                 <h2>Total Schedules: {filtered.length} ({due})</h2>
-                <table className="data-table">
+                <table>
+                    <thead className="small-table-header">
+                        <th>Vaccine</th>
+                        {showPetId ? <th>Pet ID</th> : null}
+                        <th>Pet Name</th>
+                        {showSpecies ? <th>Species</th> : null}
+                        <th>Date</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        {showEdit ? <th>Edit Date</th> : null}
+                        {showEdit ? <th>Edit Status</th> : null}
+                        <th>Actions</th>
+                    </thead>
                     <tbody>
-                        <tr className="small-table-header">
-                            <th>Vaccine</th>
-                            {showPetId ? <th>Pet ID</th> : null}
-                            <th>Pet Name</th>
-                            {showSpecies ? <th>Species</th> : null}
-                            <th>Date</th>
-                            <th>Contact</th>
-                            <th>Status</th>
-                            {showEdit ? <th>Edit Date</th> : null}
-                            {showEdit ? <th>Edit Status</th> : null}
-                            <th>Actions</th>
-                        </tr>
                         <schedulesContext.Provider value={{ fetch, showEdit, setShowEdit, showPetId, showSpecies }}>
                             {filtered
                                 .map(schedule => <Schedule key={schedule.id} schedule={schedule} />)}

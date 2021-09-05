@@ -54,14 +54,14 @@ function Customer({ customer }) {
 
     return (<>
         <table>
+            <thead>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </thead>
             <tbody>
-                <tr className="table-header">
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Contact</th>
-                    <th>Address</th>
-                    <th></th>
-                </tr>
                 <tr>
                     <td>{customer.id}</td>
                     <td><strong>{customer.name}</strong></td>
@@ -79,13 +79,13 @@ function Customer({ customer }) {
             </tbody>
         </table>
         {showEdit ? <table>
+            <thead className="edit-table-header">
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </thead>
             <tbody>
-                <tr className="edit-table-header">
-                    <th>Name</th>
-                    <th>Contact</th>
-                    <th>Address</th>
-                    <th></th>
-                </tr>
                 <tr>
                     <td><TextField label="Edit Customer Name" onChange={onEditNameChange} value={editName} /></td>
                     <td><TextField label="Edit Customer Contact" onChange={onEditContactChange} value={editContact} /></td>
@@ -100,14 +100,14 @@ function Customer({ customer }) {
         {showPet ? <>
             {customer.Pets.map(pet =>
                 <table key={pet.id}>
+                    <thead className="small-table-header">
+                        <th>Customer ID</th>
+                        <th>Pet ID</th>
+                        <th>Pet Name</th>
+                        <th>Species</th>
+                        <th>Pet DOB</th>
+                    </thead>
                     <tbody>
-                        <tr className="small-table-header">
-                            <th>Customer ID</th>
-                            <th>Pet ID</th>
-                            <th>Pet Name</th>
-                            <th>Species</th>
-                            <th>Pet DOB</th>
-                        </tr>
                         <tr>
                             <td>{customer.id}</td>
                             <td>{pet.id}</td>
