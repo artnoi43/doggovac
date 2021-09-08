@@ -42,6 +42,16 @@ const getUsers = async () => {
     };
 };
 
+const deleteUser = async () => {
+    try {
+        console.log("Deleting user");
+        await axios.delete('/users');
+        console.log("Deleted user");
+    } catch (err) {
+        console.error(err);
+    };
+};
+
 const createCustomer = async () => {
     const body = {
         name: "Prem Phan",
@@ -182,9 +192,9 @@ const genName = (len) => {
     for (let i = 0; i < len; i++) {
         result += characters.charAt(Math.floor(Math.random() *
             charactersLength));
-    }
+    };
     return result;
-}
+};
 
 const axiosConfig = (token) => {
     // Inject HTTP header for authorization with JWT
@@ -205,7 +215,7 @@ const axiosConfig = (token) => {
             Promise.reject(error);
         }
     );
-}
+};
 
 async function main() {
     const username = genName(6);
@@ -227,6 +237,7 @@ async function main() {
     const scheduleId = await getSchedules();
     await updateSchedule(scheduleId);
     await getDue();
+    await deleteUser();
 };
 
 main();
