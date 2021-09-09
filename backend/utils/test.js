@@ -6,6 +6,7 @@ const hiddenValue = "Hidden in this test";
 
 const register = async (username, password) => {
     try {
+        console.log(`Registering user ${username}`);
         const body = {
             username,
             password
@@ -19,6 +20,7 @@ const register = async (username, password) => {
 
 const login = async (username, password) => {
     try {
+        console.log(`Loggin in user ${username}`);
         const body = {
             username,
             password
@@ -26,7 +28,7 @@ const login = async (username, password) => {
         const res = await axios.post('/users/login', body);
         const { token } = res.data;
         console.log("Login successful");
-        return token
+        return token;
     } catch (err) {
         console.error(err);
     };
@@ -34,7 +36,7 @@ const login = async (username, password) => {
 
 const getUsers = async () => {
     try {
-        console.log("Getting users");
+        console.log("Test getting users");
         const res = await axios.get('/users');
         console.log("Got users: ", res.data);
     } catch (err) {
@@ -42,29 +44,28 @@ const getUsers = async () => {
     };
 };
 
-const deleteUser = async () => {
+const deleteUser = async (username) => {
     try {
-        console.log("Deleting user");
+        console.log(`Deleting user ${username}`);
         await axios.delete('/users');
-        console.log("Deleted user");
+        console.log(`Deleted user ${username}`);
     } catch (err) {
         console.error(err);
     };
 };
 
 const createCustomer = async () => {
-    const body = {
-        name: "Prem Phan",
-        contact: "11210",
-        address: "9/3"
-    };
-
     try {
         console.log("Creating customer");
+        const body = {
+            name: "Prem Phan",
+            contact: "11210",
+            address: "9/3"
+        };
         const res = await axios.post('/customers', body);
         console.log("Created customer:", res.data);
         // Return custId
-        return res.data.id
+        return res.data.id;
     } catch (err) {
         console.error(err);
     };
@@ -87,27 +88,27 @@ const updateCustomer = async (custId) => {
             name: "New Cust Name",
             contact: "1150",
             address: "3/9"
-        }
+        };
         await axios.put(`/customers/${custId}`, body);
-        console.log(`Updated customer ${custId}`)
+        console.log(`Updated customer ${custId}`);
         await getCustomer(custId);
     } catch (err) {
-        console.error(err)
+        console.error(err);
     };
 };
 
 const createPet = async (custId) => {
     try {
-        console.log("Creating pet")
+        console.log("Creating pet");
         const body = {
             name: "Beagie",
             dob: "2019-05-07",
             custId
-        }
+        };
         const res = await axios.post('/pets', body);
         console.log("Created pet:", { ...res.data, Schedules: hiddenValue });
         // Return petId
-        return res.data.id
+        return res.data.id;
     } catch (err) {
         console.error(err);
     };
@@ -131,7 +132,6 @@ const updatePet = async (petId) => {
             dob: "2021-03-12",
             note: "New Pet Note"
         };
-
         await axios.put(`/pets/${petId}`, body);
         console.log(`Updated pet ${petId}`);
         getPet(petId);
@@ -144,7 +144,7 @@ const getSchedules = async () => {
     try {
         console.log("Getting schedules");
         const res = await axios.get('/schedules');
-        lastSchedule = res.data[res.data.length - 1]
+        lastSchedule = res.data[res.data.length - 1];
         console.log("Got schedules, showing last schedule only", { ...lastSchedule, Pet: hiddenValue });
         // Return scheduleId of last schedule
         return lastSchedule.id;
@@ -170,25 +170,26 @@ const updateSchedule = async (scheduleId) => {
 
 const getDue = async () => {
     try {
+        console.log("Getting schedules (due)");
         const dues = ["today", "week", "month", "year"];
         dues.forEach(async (due) => {
-            const res = await axios.get(`/schedules/${due}`)
+            const res = await axios.get(`/schedules/${due}`);
             const dueSchedules = res.data;
             // Hide embedded pet data
             dueSchedules.forEach(dueSchedule => {
                 dueSchedule.Pet = hiddenValue;
-            })
+            });
             console.log(`Due: ${due}`, dueSchedules);
         });
     } catch (err) {
-        console.error(err)
+        console.error(err);
     };
 };
 
 const genName = (len) => {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length
+    var charactersLength = characters.length;
     for (let i = 0; i < len; i++) {
         result += characters.charAt(Math.floor(Math.random() *
             charactersLength));
@@ -207,9 +208,9 @@ const axiosConfig = (token) => {
             } else {
                 if (token) {
                     config.headers["Authorization"] = `Bearer ${token}`
-                }
+                };
                 return config;
-            }
+            };
         },
         error => {
             Promise.reject(error);
@@ -237,7 +238,7 @@ async function main() {
     const scheduleId = await getSchedules();
     await updateSchedule(scheduleId);
     await getDue();
-    await deleteUser();
+    await deleteUser(username);
 };
 
 main();
