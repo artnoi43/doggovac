@@ -19,7 +19,8 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-footer p {
+footer > p,
+footer > p > a {
 	font-family: Times;
 	font-size: small;
 }
