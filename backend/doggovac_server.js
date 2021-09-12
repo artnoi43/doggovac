@@ -7,7 +7,7 @@ if (!process.env.PORT) {
 
 switch (Number(process.env.SYNC)) {
     case 1:
-        console.log("DoggoVac: Will sync database")
+        console.log("DoggoVac: Will sync database");
         var DB="SYNC";
 };
 
