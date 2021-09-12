@@ -5,12 +5,6 @@ if (!process.env.PORT) {
     process.exit(1);
 };
 
-switch (Number(process.env.SYNC)) {
-    case 1:
-        console.log("DoggoVac: Will sync database");
-        var DB="SYNC";
-};
-
 require('dotenv').config({ path: 'config/env' });
 
 const express = require('express');
@@ -39,8 +33,9 @@ app.use('/api/schedules', schedulesRoutes);
 app.listen(Number(process.env.PORT), async () => {
     console.log(`Server listening on port ${process.env.PORT}`);
     try {
-        switch (DB) {
-            case "SYNC":
+        switch (Number(process.env.SYNC)) {
+            case 1:
+                console.log("DoggoVac: Will force sync database");
                 await sequelize.sync({ force: true });
                 console.log("DoggoVac: Database synced");
                 break;
