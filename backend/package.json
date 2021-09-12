@@ -2,9 +2,9 @@
   "name": "doggovac_backend",
   "version": "0.1.0",
   "description": "Express and Sequelize backend for DoggoVac",
-  "main": "app.js",
+  "main": "doggovac_server.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "start": "node doggovac_server.js"
   },
   "author": "Prem Phansuriyanon",
   "license": "MIT",

@@ -1,0 +1,5 @@
+PORT = 8000
+SECRET_OR_KEY = Hie0shah
+# Use SYNC to force sync database, and use AUTH to authenticate database
+#DB = SYNC
+DB = AUTH
