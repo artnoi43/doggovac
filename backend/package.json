@@ -4,7 +4,7 @@
   "description": "Express and Sequelize backend for DoggoVac",
   "main": "doggovac_server.js",
   "scripts": {
-    "start": "node doggovac_server.js"
+    "start": "PORT=8000 SYNC=0 node doggovac_server.js"
   },
   "author": "Prem Phansuriyanon",
   "license": "MIT",

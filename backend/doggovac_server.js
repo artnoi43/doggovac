@@ -1,4 +1,17 @@
-require('dotenv').config({ path: 'config/ENV' });
+if (!process.env.PORT) {
+    console.log("DoggoVac: No PORT environment variable provided");
+    console.log("DoggoVac: Please provide listening port, for example:");
+    console.log("DoggoVac: PORT=8000 node doggovac_server.js");
+    process.exit(1);
+};
+
+switch (Number(process.env.SYNC)) {
+    case 1:
+        console.log("DoggoVac: Will sync database")
+        var DB="SYNC";
+};
+
+require('dotenv').config({ path: 'config/env' });
 
 const express = require('express');
 const cors = require('cors');
@@ -26,14 +39,14 @@ app.use('/api/schedules', schedulesRoutes);
 app.listen(Number(process.env.PORT), async () => {
     console.log(`Server listening on port ${process.env.PORT}`);
     try {
-        switch (process.env.DB) {
+        switch (DB) {
             case "SYNC":
                 await sequelize.sync({ force: true });
-                console.log(`Database synced`);
+                console.log("DoggoVac: Database synced");
                 break;
             default:
                 await sequelize.authenticate();
-                console.log(`Database connected`);
+                console.log("DoggoVac: Database connected");
         }
     } catch (err) {
         console.error(err);
