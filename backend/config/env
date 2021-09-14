@@ -1,3 +1,4 @@
+DEFAULT_PORT=8000
 SECRET_OR_KEY=Hie0shah
 # To sync database, use environment SYNC=1
 DB=AUTH

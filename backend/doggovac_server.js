@@ -1,11 +1,5 @@
-if (!process.env.PORT) {
-    console.log("DoggoVac: No PORT environment variable provided");
-    console.log("DoggoVac: Please provide listening port, for example:");
-    console.log("DoggoVac: PORT=8000 node doggovac_server.js");
-    process.exit(1);
-};
-
 require('dotenv').config({ path: `${__dirname}/config/env` });
+const PORT = Number(process.env.PORT || process.env.DEFAULT_PORT);
 
 const express = require('express');
 const cors = require('cors');
@@ -30,8 +24,8 @@ app.use('/api/users', usersRoutes);
 app.use('/api/customers', customersRoutes);
 app.use('/api/schedules', schedulesRoutes);
 
-app.listen(Number(process.env.PORT), async () => {
-    console.log(`Server listening on port ${process.env.PORT}`);
+app.listen(PORT, async () => {
+    console.log(`Server listening on port ${PORT}`);
     try {
         switch (Number(process.env.SYNC)) {
             case 1:
